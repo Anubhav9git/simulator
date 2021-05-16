@@ -51,67 +51,70 @@ function fungenStart(){
 
  function graph1()
 {        
-    console.log("pulse Start");
-    
-var dps = [];
-var chart = new CanvasJS.Chart("chartContainer1", {
-	exportEnabled: true,
-	title :{
-		text: "Dynamic Spline Chart"
-	},
-	data: [{
-		type: "line",
-		markerSize: 0,
-		dataPoints: dps 
-	}]
-});
+    console.log("message start");
+    var dps = [];
+    var chart = new CanvasJS.Chart("chartContainer1", {
+        exportEnabled: true,
+        title :{
+            text: "Message Signal"
+        },
+        data: [{
+            type: "line",
+            markerSize: 0,
+            dataPoints: dps 
+        }]
+       
+    });
 
-var xVal = 0;
-var yVal = 100;
-var dataLength = 150; // number of dataPoints visible at any point
-var amp = 15;
-var fre = 30;
-var flag = 0;
-var updateChart = function (count) {
-	count = count || 1;
-	// count is number of times loop runs to generate random dataPoints.
-	for (var j = 0; j < count; j++) {	
-		if(j%fre<=amp)
-          {
-            if(flag==1)
-            {
-                xVal--;
-                flag=0;
-                
-
-            }
-            yVal = amp;
-          }
-      else
-        {
-            if(flag==0)
-            {
-                xVal--;
-                flag=1;
-                j=j-2;
-            }
-          yVal = -amp;
+    var amp = document.getElementById("myRange1").value;
+    var fre = document.getElementById("myRange2").value;
+    console.log(amp);
+    console.log(fre);
+    var xVal = 0;
+    var yVal = 100;
+    var amp = 15;
+    var fre = 30;
+    var flag = 0;
+    var dataLength = 100; // number of dataPoints visible at any point
+   
+    var updateChart = function (count) {
+        count = count || 1;
+        // count is number of times loop runs to generate random dataPoints.
+        for (var j = 0; j < count; j++) {	
+           if(j%fre<=amp)
+           {
+               if(flag==1)
+               {
+                   xVal--;
+                   flag=0;
+               }
+               yVal = amp;
+           }
+           else{
+               if(flag==0)
+               {
+                   xVal--;
+                   flag=1;
+               }
+               yVal = -amp;
+           }
+            dps.push({
+                x: xVal,
+                y: yVal
+            });
+           
+            xVal++;
         }
-  
-		dps.push({
-			x: xVal,
-			y: yVal
-		});
-		xVal++;
-	}
-	if (dps.length > dataLength) {
-		dps.shift();
-	}
-	chart.render();
-};
-
-updateChart(dataLength); 
-
+        if (dps.length > dataLength) {
+            dps.shift();
+        }
+        chart.render();
+    };
+    
+    updateChart(dataLength); 
+    
+    one =0;
+    
    
     
     
@@ -214,7 +217,49 @@ function addLoadEvent(func) {
       }
     }
   }
-  addLoadEvent(graph1);
   addLoadEvent(graph2);
- 
+  addLoadEvent(graph1);
+
+
+
+
+// window.onload = function () {
+
+//     var dps = [];
+//     var chart = new CanvasJS.Chart("chartContainer", {
+//         exportEnabled: true,
+//         title :{
+//             text: "Dynamic Spline Chart"
+//         },
+//         data: [{
+//             type: "spline",
+//             markerSize: 0,
+//             dataPoints: dps 
+//         }]
+//     });
     
+//     var xVal = 0;
+//     var yVal = 100;
+//     var updateInterval = 1000;
+//     var dataLength = 50; // number of dataPoints visible at any point
+    
+//     var updateChart = function (count) {
+//         count = count || 1;
+//         // count is number of times loop runs to generate random dataPoints.
+//         for (var j = 0; j < count; j++) {	
+//             yVal = yVal + Math.round(5 + Math.random() *(-5-5));
+//             dps.push({
+//                 x: xVal,
+//                 y: yVal
+//             });
+//             xVal++;
+//         }
+//         if (dps.length > dataLength) {
+//             dps.shift();
+//         }
+//         chart.render();
+//     };
+//     updateChart(dataLength); 
+// setInterval(function(){ updateChart() }, updateInterval);
+ 
+// } 
