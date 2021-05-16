@@ -217,8 +217,8 @@ function addLoadEvent(func) {
       }
     }
   }
-  addLoadEvent(graph2);
-  addLoadEvent(graph1);
+ // addLoadEvent(graph2);
+ // addLoadEvent(graph1);
 
 
 
